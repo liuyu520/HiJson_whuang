@@ -79,7 +79,7 @@ public class MainView3 extends MainView {
         final JTextArea area2 = getTextArea();
         JToolBar toolbar = getToolBar();
         JButton btnDelAll = new JButton("删除全部");
-        JButton btnPasteAfterDel = new JButton("删除后黏贴");
+        JButton btnPasteAfterDel = new JButton(MenuUtil2.ACTION_STR_PASTE_AFTER_DELETE);
         JButton btnQuotesEscape = new JButton(MenuUtil2.ACTION_DOUBLE_QUOTES_ESCAPE);//双引号转义
         JButton btnQuotesEscapeIntelligence = new JButton("智能双引号转义");
         JButton replaceChinaQuotes = new JButton("替换中文双引号");
@@ -314,6 +314,10 @@ public class MainView3 extends MainView {
         JMenuItem quotesEscape = new JMenuItem("\" -> \\\"");
         quotesEscape.setActionCommand("quotesEscape");
 
+        JMenuItem optimizationJsonM = new JMenuItem("\" -> \\\"");
+        optimizationJsonM.setActionCommand("optimizationJson");
+
+        
         JMenuItem unQuotesJson = new JMenuItem("\"{}\" -> {}");
         unQuotesJson.setActionCommand("unQuotesJson");
 
@@ -337,6 +341,7 @@ public class MainView3 extends MainView {
         menuReplace.add(chinaQuotes2EnglishQuotes);
         menuReplace.add(unQuotesEscape);
         menuReplace.add(quotesEscape);
+        menuReplace.add(optimizationJsonM);
         menuReplace.add(unQuotesJson);
         menuReplace.add(xml2json);
         menuReplace.add(china2English);
@@ -346,12 +351,13 @@ public class MainView3 extends MainView {
         menuReplace.add(deleteEveryThingBeforeBraceM);
         menuReplace.add(queryString2Json);
 
-        ReplaceMenuActionListener replaceMenuActionListener = new ReplaceMenuActionListener(ta);
+        ReplaceMenuActionListener replaceMenuActionListener = new ReplaceMenuActionListener();
         replaceMenuActionListener.setMainView3(this);
         cRLF2Blank.addActionListener(replaceMenuActionListener);
         chinaQuotes2EnglishQuotes.addActionListener(replaceMenuActionListener);
         unQuotesEscape.addActionListener(replaceMenuActionListener);
         quotesEscape.addActionListener(replaceMenuActionListener);
+        optimizationJsonM.addActionListener(replaceMenuActionListener);
         unQuotesJson.addActionListener(replaceMenuActionListener);
         xml2json.addActionListener(replaceMenuActionListener);
         china2English.addActionListener(replaceMenuActionListener);

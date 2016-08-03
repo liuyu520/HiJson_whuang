@@ -4,6 +4,7 @@ import com.JSON_java.JSONObject;
 import com.JSON_java.XML;
 import com.common.util.SystemHWUtil;
 import com.io.hw.json.HWJacksonUtils;
+import com.io.hw.json.JSONHWUtil;
 import com.string.widget.util.RegexUtil;
 import com.string.widget.util.ValueWidget;
 import com.swing.component.ComponentUtil;
@@ -23,13 +24,13 @@ public class ReplaceMenuActionListener implements ActionListener {
     private JTextArea ta;
     private MainView3 mainView3;
 
-    public ReplaceMenuActionListener(JTextArea ta) {
+    public ReplaceMenuActionListener() {
         super();
-        this.ta = ta;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        this.ta = this.mainView3.getTextArea();
         String command = e.getActionCommand();
         System.out.println(command);
 
@@ -146,7 +147,7 @@ public class ReplaceMenuActionListener implements ActionListener {
                 return;
             }
             Map requestMap = new HashMap();
-            SystemHWUtil.setArgumentMap(requestMap, content, true, null, null);
+            SystemHWUtil.setArgumentMap(requestMap, content, true, null, null, false, true);
             String jsonResult = HWJacksonUtils.getJsonP(requestMap);
             if (!ValueWidget.isNullOrEmpty(jsonResult)) {
                 this.ta.setText(jsonResult);
@@ -163,6 +164,12 @@ public class ReplaceMenuActionListener implements ActionListener {
             }
         } else if (command.equals(MenuUtil2.ACTION_IMAGE_COPY_SPECIFY_WIDTH_HEIGHT)) {
             TextCompUtil2.copyImgAction(this.ta);
+        } else if (command.equals("optimizationJson")) {
+            String content = this.ta.getText();
+            if (!ValueWidget.isNullOrEmpty(content)) {
+                content = JSONHWUtil.optimizationJson(content);
+                this.ta.setText(content);
+            }
         }
     }
 
