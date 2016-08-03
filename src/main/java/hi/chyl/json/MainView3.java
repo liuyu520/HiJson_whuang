@@ -5,10 +5,10 @@ import com.common.util.SystemHWUtil;
 import com.common.util.WindowUtil;
 import com.io.hw.file.util.FileUtils;
 import com.string.widget.util.ValueWidget;
+import com.swing.dialog.DialogUtil;
 import com.swing.dialog.toast.ToastMessage;
 import com.swing.menu.MenuUtil2;
 import com.swing.messagebox.GUIUtil23;
-import com.time.util.TimeHWUtil;
 import hi.chyl.json.listen.MyMenuActionListener;
 import hi.chyl.json.listen.ReplaceMenuActionListener;
 import org.jdesktop.application.Application;
@@ -18,7 +18,10 @@ import org.jdesktop.application.SingleFrameApplication;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -164,6 +167,21 @@ public class MainView3 extends MainView {
 
             }
         });
+        JButton formatJsonBtn = (JButton) getToolBar().getComponent(2);
+//        System.out.println(formatJsonBtn.getActionListeners()[0]);
+        if (null != formatJsonBtn) {
+            formatJsonBtn.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    appendStr2LogFile(getTextArea().getText());
+                }
+            });
+        }
+        /*btnFormat.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                MainView.this.formatJson();
+            }
+        });*/
+
     }
 
     public void dealTextArea() {
@@ -512,22 +530,7 @@ public class MainView3 extends MainView {
      * @param content
      */
     public void appendStr2LogFile(final String content, final boolean isCloseOutput) {
-        if (!ValueWidget.isNullOrEmpty(content)) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        FileUtils.appendStr2File(logFile, TimeHWUtil.getCurrentFormattedTime() + SystemHWUtil.CRLF, SystemHWUtil.CHARSET_UTF, false);
-                        FileUtils.appendStr2File(logFile, content + SystemHWUtil.CRLF, SystemHWUtil.CHARSET_UTF, isCloseOutput);
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }).start();
-        }
+        DialogUtil.appendStr2LogFile(content, logFile, isCloseOutput);
     }
 
     public void openLoggerFile2() {
