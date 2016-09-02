@@ -170,6 +170,12 @@ public class ReplaceMenuActionListener implements ActionListener {
                 content = JSONHWUtil.optimizationJson(content);
                 this.ta.setText(content);
             }
+        } else if (command.equals("删除中括号两边的引号")) {
+            String content = this.ta.getText();
+            if (!ValueWidget.isNullOrEmpty(content)) {
+                content = content.replaceAll("(:[\\s]*)\"([\\[\\{].*[\\]\\}])[\\s]*\"([\\s]*}[\\s]*[^\"]?$)", "$1$2$3");
+                this.ta.setText(content);
+            }
         }
     }
 
