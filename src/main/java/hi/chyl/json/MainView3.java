@@ -351,6 +351,7 @@ public class MainView3 extends MainView {
                 MenuUtil2.ACTION_STR2LOWER_CASE);
 
         JMenuItem deleteTwoQuoteM = new JMenuItem(MenuUtil2.ACTION_DELETE_TWO_QUOTE);
+        JMenuItem deleteAnyTwoQuoteM = new JMenuItem("删除双引号");
         JMenuItem deleteEveryThingBeforeBraceM = new JMenuItem("删除{前面的所有内容");
         JMenuItem queryString2Json = new JMenuItem(MenuUtil2.ACTION_QUERY_STRING2JSON);
         queryString2Json.setActionCommand(MenuUtil2.ACTION_QUERY_STRING2JSON);
@@ -369,6 +370,7 @@ public class MainView3 extends MainView {
         menuReplace.add(upperCaseM);
         menuReplace.add(lowerCaseM);
         menuReplace.add(deleteTwoQuoteM);
+        menuReplace.add(deleteAnyTwoQuoteM);
         menuReplace.add(deleteEveryThingBeforeBraceM);
         menuReplace.add(queryString2Json);
         menuReplace.add(deleteQuoteBrackets);
@@ -389,6 +391,7 @@ public class MainView3 extends MainView {
         deleteQuoteBrackets.addActionListener(replaceMenuActionListener);
 
         deleteTwoQuoteM.addActionListener(replaceMenuActionListener);
+        deleteAnyTwoQuoteM.addActionListener(replaceMenuActionListener);
         deleteEveryThingBeforeBraceM.addActionListener(replaceMenuActionListener);
         menuBar.add(menuReplace);
 

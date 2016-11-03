@@ -135,10 +135,16 @@ public class ReplaceMenuActionListener implements ActionListener {
                     ComponentUtil.copyImage(ta, true);
                 }
             }).start();
-        } else if (command.equals("删除两边的双引号")) {
+        } else if (command.equals(MenuUtil2.ACTION_DELETE_TWO_QUOTE)) {
             String content = this.ta.getText();
             if (!ValueWidget.isNullOrEmpty(content)) {
                 content = RegexUtil.deleteTwoQuote(content);
+                this.ta.setText(content);
+            }
+        } else if (command.equals("删除双引号")) {
+            String content = this.ta.getText();
+            if (!ValueWidget.isNullOrEmpty(content)) {
+                content = content.replaceAll("\"", SystemHWUtil.EMPTY);
                 this.ta.setText(content);
             }
         } else if (command.startsWith(MenuUtil2.ACTION_QUERY_STRING2JSON)) {
@@ -173,7 +179,7 @@ public class ReplaceMenuActionListener implements ActionListener {
         } else if (command.equals("删除中括号两边的引号")) {
             String content = this.ta.getText();
             if (!ValueWidget.isNullOrEmpty(content)) {
-                content = content.replaceAll("(:[\\s]*)\"([\\[\\{].*[\\]\\}])[\\s]*\"([\\s]*}[\\s]*[^\"]?$)", "$1$2$3");
+                content = content.replaceAll("(:[\\s]*)\"([\\[\\{].*[\\]\\}])[\\s]*\"", "$1$2");
                 this.ta.setText(content);
             }
         }
